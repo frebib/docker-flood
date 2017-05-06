@@ -16,7 +16,6 @@ services:
 
   flood:
     image: frebib/flood
-    privileged: true
     environment:
       - NODE_ENV=development
       #- RTORRENT_HOST=rtorrent
