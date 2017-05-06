@@ -1,0 +1,35 @@
+version: "3"
+
+volumes:
+  rtorrent-sock:
+
+services:
+  rtorrent:
+    image: frebib/rtorrent
+    volumes:
+      - ./data:/data
+      - ./config/rtorrent:/config
+      - rtorrent-sock:/var/run/rtorrent
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+
+  flood:
+    image: frebib/flood
+    privileged: true
+    environment:
+      - NODE_ENV=development
+      #- RTORRENT_HOST=rtorrent
+      - SOCK_FILE=/var/run/rtorrent/rtorrent.sock
+      - POLL_INTERVAL=200
+    ports:
+      - 3000:3000
+    volumes:
+      - ./data:/data
+      - ./config/flood:/config
+      - rtorrent-sock:/var/run/rtorrent
+    depends_on:
+      - rtorrent
+    restart: unless-stopped
+
+# vim: sw=2 sts=2 ts=2

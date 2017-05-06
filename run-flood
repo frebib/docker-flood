@@ -1,0 +1,23 @@
+#!/bin/sh
+set -e
+
+[ -z "$FLOOD_DIR" ] && FLOOD_DIR="$1"
+
+if ! [ -d "$FLOOD_DIR" ]; then
+    echo '$FLOOD_DIR variable unset/no path specified.'
+    echo 'Please specify and try again'
+    exit 5
+fi
+
+cd "$FLOOD_DIR"
+chown $UID:$GID -R /config #.
+
+# Ensure Flood has rw access to the socket file
+if [ -n "$SOCK_PATH" ]; then
+    chgrp $GID "$SOCK_PATH"
+    chmod g+rw "$SOCK_PATH"
+fi
+
+# Run flood server
+exec su-exec $UID:$GID \
+    node server/bin/www
