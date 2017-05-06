@@ -18,7 +18,6 @@ services:
     image: frebib/flood
     environment:
       - NODE_ENV=development
-      #- RTORRENT_HOST=rtorrent
       - SOCK_FILE=/var/run/rtorrent/rtorrent.sock
       - POLL_INTERVAL=200
     ports:
