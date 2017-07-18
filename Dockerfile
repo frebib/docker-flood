@@ -1,5 +1,5 @@
 FROM node:alpine
-MAINTAINER Adam Dodman <adam.dodman@gmx.com>
+MAINTAINER Joe Groocock <frebib@gmail.com>
 
 ENV UID=899 GID=899 \
     FLOOD_DIR=/opt/flood
